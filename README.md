@@ -19,7 +19,7 @@ The Deepfence Runtime Threat Mapper is a subset of the Deepfence cloud native wo
 
 # Live Demo
 
-https://deepfence.io/community-demo-form/
+[https://deepfence.io/community-demo-form/](https://deepfence.io/community-demo-form/)
 
 # Contents
 
@@ -160,14 +160,12 @@ For detailed instructions to deploy agents on Amazon ECS, please refer to our [A
 
 - Start deepfence agent (replace x.x.x.x with the IP address of the Management Console)
 ```shell script
-helm repo add deepfence https://deepfence.github.io/ThreatMapper/files/helm-chart
-helm install deepfence/deepfence-agent --name deepfence-agent --set managementConsoleIp=x.x.x.x
+helm install --repo https://deepfence.github.io/ThreatMapper/files/helm-chart deepfence-agent --name deepfence-agent --set managementConsoleIp=x.x.x.x
 ```
 
 - Delete deepfence agent
 ```shell script
 helm delete --purge deepfence-agent
-helm repo remove deepfence
 ```
 
 #### Deepfence Agent on Google GKE
