@@ -132,12 +132,12 @@ In order to check a host for vulnerabilities, or if docker images or containers 
 Feature       | Requirements
 ------------- | ----------------- 
 CPU: No of cores | 2
-RAM | 4 GB
+RAM | 1 GB
 Disk space | At-least 30 GB
 Connectivity | The host on which the Deepfence Agent is to be installed, is able to communicate with the Management Console on port range 8000-8010. 
 Linux kernel version | >= 4.4
 [Docker] binaries | *At-least version 18.03*
-Deepfence Management Console | Installed on a host with IP Address a.b.c.d
+Deepfence Management Console | Installed on a host with IP Address x.x.x.x
 
 ### Installation
 
