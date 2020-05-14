@@ -34,6 +34,7 @@ https://deepfence.io/community-demo-form/
     * [Installation](#installation)
       * [Deepfence Agent on Standalone VM or Host](#deepfence-agent-on-standalone-vm-or-host)
       * [Deepfence Agent on Amazon ECS](#deepfence-agent-on-amazon-ecs)
+      * [Deepfence Agent Helm chart for Kubernetes](#deepfence-agent-helm-chart-for-kubernetes)
       * [Deepfence Agent on Google GKE](#deepfence-agent-on-google-gke)
       * [Deepfence Agent on Self-managed/On-premise Kubernetes](#deepfence-agent-on-self-managedon-premise-kubernetes)
 * [How do I use Deepfence?](#how-do-i-use-deepfence)
@@ -155,6 +156,19 @@ docker run -dit --cpus=".2" --name=deepfence-agent --restart on-failure --pid=ho
 
 For detailed instructions to deploy agents on Amazon ECS, please refer to our [Amazon ECS](https://github.com/deepfence/ThreatMapper/wiki/Amazon-ECS-Deployment) wiki page.
 
+#### Deepfence Agent Helm chart for Kubernetes
+
+- Start deepfence agent (replace x.x.x.x with the IP address of the Management Console)
+```shell script
+cd ThreatMapper/files/deepfence_agent_helm_chart
+helm install --name deepfence-agent --set managementConsoleIp=x.x.x.x .
+```
+
+- Delete deepfence agent
+```shell script
+helm delete --purge deepfence-agent
+```
+
 #### Deepfence Agent on Google GKE
 
 For detailed instructions to deploy agents on Google GKE, please refer to our [Google GKE](https://github.com/deepfence/ThreatMapper/wiki/Google-Kubernetes-Engine-Deployment) wiki page.
@@ -165,7 +179,7 @@ For detailed instructions to deploy agents on Google GKE, please refer to our [S
 
 ## How do I use Deepfence?
 
-Now that the Deepfence Security Platform has been successfully installed, here
+Now the Deepfence Security Platform has been successfully installed, here
 are the steps to begin --
 
 

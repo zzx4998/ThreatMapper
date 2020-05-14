@@ -1,0 +1,2 @@
+Deepfence agent will be started as a daemon set in the cluster.
+Management console ip is {{ .Values.managementConsoleIp }}

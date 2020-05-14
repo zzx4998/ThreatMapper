@@ -138,46 +138,46 @@ spec:
           operator: Exists
 
       volumes:
-      - name: docker-sock
-        hostPath:
-          path: /var/run/docker.sock
-          type: Socket
-      - name: kernel-sys
-        hostPath:
-          path: /sys/kernel/debug
-          type: Directory
-      - name: host-fs
-        hostPath:
-          path: /
-          type: Directory
-      - name: fenced-path
-        emptyDir: {}
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+            type: Socket
+        - name: kernel-sys
+          hostPath:
+            path: /sys/kernel/debug
+            type: Directory
+        - name: host-fs
+          hostPath:
+            path: /
+            type: Directory
+        - name: fenced-path
+          emptyDir: {}
 
       containers:
-      - name: deepfence-agent
-        image: deepfenceio/deepfence_agent_ce:latest
-        imagePullPolicy: Always
-        securityContext:
-          privileged: true
-        resources:
-          requests:
-            cpu: 150m
-            memory: 512Mi
-          limits:
-            memory: 1024Mi
-        env:
-        - name: DF_BACKEND_IP
-          value: "MGMT_CONSOLE_IP_ADDR"
-        - name: DF_KUBERNETES_ON
-          value: "Y"
-        volumeMounts:
-        - mountPath: /var/run/docker.sock
-          name: docker-sock
-        - mountPath: /sys/kernel/debug
-          name: kernel-sys
-        - mountPath: /fenced/mnt/host
-          name: host-fs
-          readOnly: true
-        - mountPath: /var/log/fenced
-          name: fenced-path
+        - name: deepfence-agent
+          image: deepfenceio/deepfence_agent_ce:latest
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              cpu: 150m
+              memory: 512Mi
+            limits:
+              memory: 1024Mi
+          env:
+            - name: DF_BACKEND_IP
+              value: "MGMT_CONSOLE_IP_ADDR"
+            - name: DF_KUBERNETES_ON
+              value: "Y"
+          volumeMounts:
+            - mountPath: /var/run/docker.sock
+              name: docker-sock
+            - mountPath: /sys/kernel/debug
+              name: kernel-sys
+            - mountPath: /fenced/mnt/host
+              name: host-fs
+              readOnly: true
+            - mountPath: /var/log/fenced
+              name: fenced-path
 ---
