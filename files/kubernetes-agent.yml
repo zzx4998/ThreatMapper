@@ -12,7 +12,7 @@ metadata:
     name: deepfence-agent
   namespace: deepfence
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: deepfence-agent
@@ -99,7 +99,7 @@ rules:
       - list
       - watch
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: deepfence-agent
@@ -114,12 +114,15 @@ subjects:
     name: deepfence-agent
     namespace: deepfence
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: deepfence-agent-daemon
   namespace: deepfence
 spec:
+  selector:
+    matchLabels:
+      app: deepfence-agent
   updateStrategy:
     type: RollingUpdate
   template:
