@@ -8,6 +8,6 @@ entries:
     digest: e5129f36a518fa448ff8c06078f65830c5f6fc6acf46ead877d8b4b3e345f3fa
     name: deepfence-agent
     urls:
-    - https://deepfence.github.io/ThreatMapper/files/helm-chart/deepfence-agent-0.1.0.tgz
-    version: 0.1.0
+    - https://deepfence.github.io/ThreatMapper/files/helm-chart/deepfence-agent-0.1.1.tgz
+    version: 0.1.1
 generated: 2020-05-14T13:02:29.516802+05:30
