@@ -104,6 +104,7 @@ services:
       - es_master
     volumes:
       - deepfence_data_community:/data:rw
+      - /etc/docker/certs.d:/etc/docker/certs.d
       - /var/run/docker.sock:/var/run/docker.sock
     entrypoint: /app/code/dockerify/api/entrypoint
 
