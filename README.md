@@ -21,6 +21,10 @@ The Deepfence Runtime Threat Mapper is a subset of the Deepfence cloud native wo
 
 [https://deepfence.io/community-demo-form/](https://deepfence.io/community-demo-form/)
 
+# Slack
+
+Please join us on Slack [here](https://join.slack.com/t/deepfencecommunity/shared_invite/zt-exqn0n82-2lvZLZmlPAiwsW9_JcUUyA) for community edition support.
+
 # Contents
 
 * [Architecture](#architecture)
@@ -251,4 +255,4 @@ We periodically scan our own images for vulnerabilities and pulling latest image
 
 ### Support
 
-Please file Github issues as needed.  
+Please file Github issues as needed.
