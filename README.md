@@ -216,6 +216,10 @@ Clicking on an item in the above image gives a detailed view as in the image bel
 
 ![Vulnerability Scanning](images/DF_Vulnerability3.png)
 
+Most Exploitable Vulnerabilities tab gives a ranked list of vulnerabilities across images to be fixed at priority. Rank is calculated using various parameters like whether the image is running or not, cve score and severity of the vulnerability.
+
+![Vulnerability Scanning](images/DF_MostExploitableVulnerabilities.png)
+
 Optionally, users can tag a subset of nodes using user defined tags and scan a subset of nodes as explained in our [user tags wiki page](https://github.com/deepfence/ThreatMapper/wiki/Vulnerability-Scanning-Using-Tags).
 
 ### Use Case - Registry Scanning
