@@ -257,4 +257,4 @@ We periodically scan our own images for vulnerabilities and pulling latest image
 
 ### Support
 
-Please file Github issues as needed.
+Please file Github issues as needed and/or join Deepfence community Slack channel.
