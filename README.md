@@ -38,6 +38,7 @@ The Deepfence Runtime Threat Mapper is a subset of the Deepfence cloud native wo
       * [Deepfence Agent on Amazon ECS](#deepfence-agent-on-amazon-ecs)
       * [Deepfence Agent Helm chart for Kubernetes](#deepfence-agent-helm-chart-for-kubernetes)
       * [Deepfence Agent on Google GKE](#deepfence-agent-on-google-gke)
+      * [Deepfence Agent on Azure AKS](#deepfence-agent-on-azure-aks)
       * [Deepfence Agent on Self-managed/On-premise Kubernetes](#deepfence-agent-on-self-managedon-premise-kubernetes)
 * [How do I use Deepfence?](#how-do-i-use-deepfence)
     * [Register a User](#register-a-user)
@@ -173,6 +174,10 @@ helm delete --purge deepfence-agent
 #### Deepfence Agent on Google GKE
 
 For detailed instructions to deploy agents on Google GKE, please refer to our [Google GKE](https://github.com/deepfence/ThreatMapper/wiki/Google-Kubernetes-Engine-Deployment) wiki page.
+
+### Deepfence Agent on Azure AKS
+
+For detailed instructions to deploy agents on Azure Kubernetes Service, please refer to our [Azure AKS](https://github.com/deepfence/ThreatMapper/wiki/Azure-Kubernetes-Service-Deployment) wiki page.
 
 #### Deepfence Agent on Self-managed/On-premise Kubernetes
 
