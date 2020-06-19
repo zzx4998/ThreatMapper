@@ -31,6 +31,7 @@ The Deepfence Runtime Threat Mapper is a subset of the Deepfence cloud native wo
   * [Deepfence management Console](#deepfence-management-console)
     * [Pre-Requisites](#pre-requisites)
     * [Installation](#installation)
+    * [Terraform](#terraform)
   * [Deepfence Agent](#deepfence-agent)
     * [Pre-Requisites](#pre-requisities)
     * [Installation](#installation)
@@ -125,6 +126,10 @@ docker-compose -f docker-compose.yml up -d
 ```
 
 This is the minimal installation required to quickly get started on scanning various container images. The necessary images may now be downloaded onto this Management Console and scanned for vulnerabilities.
+
+### Terraform
+
+- [Terraform module](files/terraform/gcp/ReadMe.md) to provision Deepfence ThreatMapper on GCP Compute Engine
 
 ## Deepfence Agent
 
