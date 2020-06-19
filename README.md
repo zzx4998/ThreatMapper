@@ -129,7 +129,7 @@ This is the minimal installation required to quickly get started on scanning var
 
 ### Terraform
 
-- [Terraform module](files/terraform/gcp/ReadMe.md) to provision Deepfence ThreatMapper on GCP Compute Engine
+- [Terraform module](files/terraform/gcp) to provision Deepfence ThreatMapper on GCP Compute Engine
 
 ## Deepfence Agent
 
