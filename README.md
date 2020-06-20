@@ -168,12 +168,18 @@ For detailed instructions to deploy agents on Amazon ECS, please refer to our [A
 
 - Start deepfence agent (replace x.x.x.x with the IP address of the Management Console)
 ```shell script
+# helm 2
 helm install --repo https://deepfence.github.io/ThreatMapper/files/helm-chart deepfence-agent --name deepfence-agent --set managementConsoleIp=x.x.x.x
+# helm 3
+helm install deepfence-agent --repo https://deepfence.github.io/ThreatMapper/files/helm-chart deepfence-agent --set managementConsoleIp=x.x.x.x
 ```
 
 - Delete deepfence agent
 ```shell script
+# helm 2
 helm delete --purge deepfence-agent
+# helm 3
+helm delete deepfence-agent
 ```
 
 #### Deepfence Agent on Google GKE
