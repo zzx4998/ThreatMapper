@@ -32,6 +32,7 @@ The Deepfence Runtime Threat Mapper is a subset of the Deepfence cloud native wo
     * [Pre-Requisites](#pre-requisites)
     * [Installation](#installation)
     * [Terraform](#terraform)
+    * [Custom TLS Certificates](#installation-with-custom-tls-certificates)
   * [Deepfence Agent](#deepfence-agent)
     * [Pre-Requisites](#pre-requisities)
     * [Installation](#installation)
@@ -129,7 +130,11 @@ This is the minimal installation required to quickly get started on scanning var
 
 ### Terraform
 
-- [Terraform module](files/terraform/gcp) to provision Deepfence ThreatMapper on GCP Compute Engine
+- [Terraform module](files/terraform/gcp) to provision Deepfence ThreatMapper on GCP Compute Engine 
+
+### Installation with custom TLS certificates
+
+Custom TLS certificates are supported for the web application hosted on the console machine. On the console machine users have to place the certificate and private key on /etc/deepfence/certs folder. Deepfence looks for the file with .key and .crt extentions on the specified location on the host.
 
 ## Deepfence Agent
 
