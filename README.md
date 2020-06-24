@@ -105,7 +105,7 @@ A pictorial depiction of the Deepfence security platform is as follows:
 
 Feature       | Requirements
 ------------- | ----------------- 
-CPU: No of cores | 8
+CPU: No of cores | 4
 RAM | 16 GB
 Disk space | At-least 120 GB
 Port range to be opened for receiving data from Deepfence agents | 8000 - 8010
