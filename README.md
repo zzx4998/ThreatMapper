@@ -116,6 +116,16 @@ Port to be opened for web browsers to be able to communicate with the Management
 [Docker]: https://docs.docker.com/install/
 [docker-compose]: https://github.com/docker/compose/releases/tag/1.20.1
 
+Following table gives the number of nodes that can be supported with different console machine configurations:
+
+CPU       | RAM       | Nodes supported
+--------- | --------- | ----------------- 
+4 cores   | 16 GB RAM | 250 nodes
+8 cores   | 16 GB RAM | 500 nodes
+8 cores   | 32 GB RAM | 1000 nodes
+16 cores  | 32 GB RAM | 1400-1500 nodes
+
+
 ### Installation
 
 Installing the Management Console is as easy as:
