@@ -66,8 +66,8 @@ A pictorial depiction of the Deepfence Architecture is below
 
 Features      | Runtime Threat mapper (Community Edition) | Workload Protection Platform (Enterprise Edition)
 ------------- | ----------------- | -------------  
-Discover & Visualize Running Pods, Containers and Hosts   | :heavy_check_mark: (upto 100 hosts) | :heavy_check_mark: (unlimited)
-Runtime Vulnerability Management for hosts/VMs | :heavy_check_mark: (upto 100 hosts) | :heavy_check_mark: (unlimited)
+Discover & Visualize Running Pods, Containers and Hosts   | :heavy_check_mark: (unlimited) | :heavy_check_mark: (unlimited)
+Runtime Vulnerability Management for hosts/VMs | :heavy_check_mark: (unlimited) | :heavy_check_mark: (unlimited)
 Runtime Vulnerability Management for containers | :heavy_check_mark: (unlimited) | :heavy_check_mark: (unlimited)
 Container Registry Scanning  | :heavy_check_mark:  | :heavy_check_mark:
 CI/CD Integration  | :heavy_check_mark:  | :heavy_check_mark:
