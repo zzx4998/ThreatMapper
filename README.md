@@ -116,7 +116,7 @@ Port to be opened for web browsers to be able to communicate with the Management
 [Docker]: https://docs.docker.com/install/
 [docker-compose]: https://github.com/docker/compose/releases/tag/1.20.1
 
-Following table gives the number of nodes that can be supported with different console machine configurations:
+Following table gives the number of nodes that can be supported with different console machine configurations assuming a single node deployment of console. Memory optimised instances are shown to perform better. 
 
 CPU       | RAM       | Nodes supported
 --------- | --------- | ----------------- 
@@ -125,6 +125,7 @@ CPU       | RAM       | Nodes supported
 8 cores   | 32 GB RAM | 1000 nodes
 16 cores  | 32 GB RAM | 1400-1500 nodes
 
+In order to support higher numbers of nodes (i.e. hosts as number of containers can be unlimited theoritically based on their life times) ThreatMapper needs to be deployed as a 3 node k8s cluster to scale up to 10000 nodes. 
 
 ### Installation
 
