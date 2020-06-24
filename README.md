@@ -125,7 +125,7 @@ CPU       | RAM       | Nodes supported
 8 cores   | 32 GB RAM | 1000 nodes
 16 cores  | 32 GB RAM | 1400-1500 nodes
 
-In order to support higher numbers of nodes (i.e. hosts as number of containers can be unlimited theoritically based on their life times) ThreatMapper needs to be deployed as a 3 node k8s cluster to scale up to 10000 nodes. 
+In order to support higher numbers of nodes (i.e. hosts as number of containers can be unlimited theoritically based on their life times) ThreatMapper needs to be deployed as a 3 node k8s cluster to scale up to 10000 nodes, instructions to follow. 
 
 ### Installation
 
