@@ -3,12 +3,12 @@ kind: ClusterRoleBinding
 metadata:
   name: deepfence-agent
   labels:
-    name: deepfence-agent
+    {{- include "deepfence-agent.labels" . | nindent 4 }}
 roleRef:
   kind: ClusterRole
   name: deepfence-agent
   apiGroup: rbac.authorization.k8s.io
 subjects:
   - kind: ServiceAccount
-    name: deepfence-agent
-    namespace: deepfence
+    name: {{ .Values.serviceAccount.name }}
+    namespace: {{ .Values.namespace }}

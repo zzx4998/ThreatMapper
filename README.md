@@ -12,12 +12,9 @@ The Deepfence Runtime Threat Mapper is a subset of the Deepfence cloud native wo
 
 3. Container Registry Scanning: Check for vulnerabilities in images stored on AWS ECR, Azure Container Registry, Google Container Registry, Docker Hub, Docker Self-Hosted Private Registry, Quay, Harbor, Gitlab and JFrog registries.
 
-4. CI/CD Scanning: Scan images as part of existing [CI/CD Pipelines] like CircleCI, Jenkins & GitLab.
+4. CI/CD Scanning: Scan images as part of existing [CI/CD Pipelines](ci-cd-integrations) like CircleCI, Jenkins & GitLab.
 
 5. Integrations with SIEM, Notification Channels & Ticketing: Ready to use integrations with Slack, PagerDuty, HTTP endpoint, Jira, Splunk, ELK, Sumo Logic and Amazon S3.
-
-[Harbor]: https://goharbor.io/
-[CI/CD Pipelines]: ci-cd-Integrations
 
 # Live Demo
 
@@ -29,19 +26,19 @@ The Deepfence Runtime Threat Mapper is a subset of the Deepfence cloud native wo
 * [Features](#feature-availability)
 * [Getting Started](#getting-started)
   * [Deepfence management Console](#deepfence-management-console)
-    * [Pre-Requisites](#pre-requisites)
-    * [Installation](#installation)
+    * [Pre-Requisites](#pre-requisites-for-management-console)
+    * [Installation](#installation-of-deepfence-management-console)
     * [Terraform](#terraform)
     * [Custom TLS Certificates](#installation-with-custom-tls-certificates)
   * [Deepfence Agent](#deepfence-agent)
-    * [Pre-Requisites](#pre-requisities)
-    * [Installation](#installation)
+    * [Pre-Requisites](#pre-requisites-for-deepfence-agent)
+    * [Installation](#installation-of-deepfence-agent)
       * [Deepfence Agent on Standalone VM or Host](#deepfence-agent-on-standalone-vm-or-host)
       * [Deepfence Agent on Amazon ECS](#deepfence-agent-on-amazon-ecs)
       * [Deepfence Agent Helm chart for Kubernetes](#deepfence-agent-helm-chart-for-kubernetes)
       * [Deepfence Agent on Google GKE](#deepfence-agent-on-google-gke)
       * [Deepfence Agent on Azure AKS](#deepfence-agent-on-azure-aks)
-      * [Deepfence Agent on Self-managed/On-premise Kubernetes](#deepfence-agent-on-self-managedon-premise-kubernetes)
+      * [Deepfence Agent on Self-managed/On-premise Kubernetes](#deepfence-agent-on-self-managed--on-premise-kubernetes)
 * [How do I use Deepfence?](#how-do-i-use-deepfence)
     * [Register a User](#register-a-user)
     * [Use case - Visualization](#use-case---visualization)
@@ -101,7 +98,7 @@ A pictorial depiction of the Deepfence security platform is as follows:
    
 ## Deepfence Management Console
 
-### Pre-Requisites
+### Pre-Requisites for Management Console
 
 Feature       | Requirements
 ------------- | ----------------- 
@@ -125,18 +122,22 @@ CPU       | RAM       | Nodes supported
 8 cores   | 32 GB RAM | 1000 nodes
 16 cores  | 32 GB RAM | 1400-1500 nodes
 
-In order to support higher numbers of nodes (i.e. hosts as number of containers can be unlimited theoritically based on their life times) ThreatMapper needs to be deployed as a 3 node k8s cluster to scale up to 10000 nodes, instructions to follow. 
+In order to support higher numbers of nodes (i.e. hosts as number of containers can be unlimited theoretically based on their life times) ThreatMapper needs to be deployed as a 3 node k8s cluster to scale up to 10000 nodes, instructions to follow. 
 
-### Installation
+### Installation of Deepfence Management Console
 
 Installing the Management Console is as easy as:
 
 1. Download the file [docker-compose.yml](files/docker-compose.yml) to the desired system.
 2. Execute the following command
-```shell script
-docker-compose -f docker-compose.yml up -d
-```
-
+    ```shell script
+    docker-compose -f docker-compose.yml up -d
+    ```
+3. Open management console ip address / domain in the browser (https://x.x.x.x) and register a new account. Steps: [Register a User](#register-a-user)
+4. Get Deepfence api key from UI: Goto `Settings` -> `User Management`, copy api key. In the following docker run command, replace `C8TtyEtNB0gBo1wGhpeAZICNSAaGWw71BSdS2kLELY0` with api Key. Steps: [Deepfence API Key](#deepfence-api-key)
+    ```shell script
+    docker run -dit --cpus=".2" --name=deepfence-agent --restart on-failure --pid=host --net=host --privileged=true -v /sys/kernel/debug:/sys/kernel/debug:rw -v /var/log/fenced -v /var/run/docker.sock:/var/run/docker.sock -v /:/fenced/mnt/host/:ro -e USER_DEFINED_TAGS="" -e DF_BACKEND_IP="127.0.0.1" -e DEEPFENCE_KEY="C8TtyEtNB0gBo1wGhpeAZICNSAaGWw71BSdS2kLELY0" deepfenceio/deepfence_agent_ce:latest
+    ```
 This is the minimal installation required to quickly get started on scanning various container images. The necessary images may now be downloaded onto this Management Console and scanned for vulnerabilities.
 
 ### Terraform
@@ -151,7 +152,7 @@ Custom TLS certificates are supported for the web application hosted on the cons
 
 In order to check a host for vulnerabilities, or if docker images or containers that have to be checked for vulnerabilities are saved on different hosts, then the Deepfence agent needs to be installed on those hosts.
 
-### Pre-Requisities
+### Pre-Requisites for Deepfence Agent
 
 Feature       | Requirements
 ------------- | ----------------- 
@@ -161,9 +162,9 @@ Disk space | At-least 30 GB
 Connectivity | The host on which the Deepfence Agent is to be installed, is able to communicate with the Management Console on port range 8000-8010. 
 Linux kernel version | >= 4.4
 [Docker] binaries | *At-least version 18.03*
-Deepfence Management Console | Installed on a host with IP Address x.x.x.x
+Deepfence Management Console | Installed on a host with IP Address `x.x.x.x`
 
-### Installation
+### Installation of Deepfence Agent
 
 Installation procedure for the Deepfence agent depends on the environment that is being used. Instructions for installing Deepfence agent on some of the common platforms are given in detail below:
 
@@ -171,10 +172,12 @@ Installation procedure for the Deepfence agent depends on the environment that i
 
 Installing the Deepfence Agent is now as easy as:
 
-1. In the following docker run command, replace x.x.x.x with the IP address of the Management Console
-```
-docker run -dit --cpus=".2" --name=deepfence-agent --restart on-failure --pid=host --net=host --privileged=true -v /var/log/fenced -v /var/run/docker.sock:/var/run/docker.sock -v /:/fenced/mnt/host/:ro  -v /sys/kernel/debug:/sys/kernel/debug:rw -e DF_BACKEND_IP="x.x.x.x" deepfenceio/deepfence_agent_ce:latest
-```
+1. Get Deepfence api key from UI: Goto `Settings` -> `User Management`, copy api key
+2. In the following docker run command, replace `x.x.x.x` with the IP address of the Management Console and replace `C8TtyEtNB0gBo1wGhpeAZICNSAaGWw71BSdS2kLELY0` with api Key
+    ```
+    docker run -dit --cpus=".2" --name=deepfence-agent --restart on-failure --pid=host --net=host --privileged=true -v /sys/kernel/debug:/sys/kernel/debug:rw -v /var/log/fenced -v /var/run/docker.sock:/var/run/docker.sock -v /:/fenced/mnt/host/:ro -e USER_DEFINED_TAGS="" -e DF_BACKEND_IP="x.x.x.x" -e DEEPFENCE_KEY="C8TtyEtNB0gBo1wGhpeAZICNSAaGWw71BSdS2kLELY0" deepfenceio/deepfence_agent_ce:latest
+    ```
+3. Optionally the agent node can be tagged using `USER_DEFINED_TAGS=""` in the above command. Tags should be comma separated. Example: "dev,front-end"
 
 #### Deepfence Agent on Amazon ECS
 
@@ -182,19 +185,24 @@ For detailed instructions to deploy agents on Amazon ECS, please refer to our [A
 
 #### Deepfence Agent Helm chart for Kubernetes
 
-- Start deepfence agent (replace x.x.x.x with the IP address of the Management Console)
+- Start deepfence agent (replace `x.x.x.x` with the IP address of the Management Console)
 ```shell script
-# helm 2
-helm install --repo https://deepfence.github.io/ThreatMapper/files/helm-chart deepfence-agent --name deepfence-agent --set managementConsoleIp=x.x.x.x
-# helm 3
-helm install deepfence-agent --repo https://deepfence.github.io/ThreatMapper/files/helm-chart deepfence-agent --set managementConsoleIp=x.x.x.x
+# helm v2
+helm install --repo https://deepfence.github.io/ThreatMapper/files/helm-chart deepfence-agent \
+    --name=deepfence-agent \
+    --set managementConsoleIp=x.x.x.x \
+    --set deepfenceKey=aaaaa
+# helm v3
+helm install deepfence-agent --repo https://deepfence.github.io/ThreatMapper/files/helm-chart deepfence-agent \
+    --set managementConsoleIp=x.x.x.x \
+    --set deepfenceKey=aaaaa
 ```
 
 - Delete deepfence agent
 ```shell script
-# helm 2
+# helm v2
 helm delete --purge deepfence-agent
-# helm 3
+# helm v3
 helm delete deepfence-agent
 ```
 
@@ -206,9 +214,9 @@ For detailed instructions to deploy agents on Google GKE, please refer to our [G
 
 For detailed instructions to deploy agents on Azure Kubernetes Service, please refer to our [Azure AKS](https://github.com/deepfence/ThreatMapper/wiki/Azure-Kubernetes-Service-Deployment) wiki page.
 
-#### Deepfence Agent on Self-managed/On-premise Kubernetes
+#### Deepfence Agent on self-managed / on-premise Kubernetes
 
-For detailed instructions to deploy agents on Google GKE, please refer to our [Self-managed/On-premise Kubernetes](https://github.com/deepfence/ThreatMapper/wiki/Kubernetes-(Self-managed-or-on-premise)) wiki page.
+For detailed instructions to deploy agents on a Kubernetes cluster, please refer to our [Self-managed/On-premise Kubernetes](https://github.com/deepfence/ThreatMapper/wiki/Kubernetes-(Self-managed-or-on-premise)) wiki page.
 
 ## How do I use Deepfence?
 
@@ -221,12 +229,18 @@ are the steps to begin --
 The first step is to register a user with the Management Console.
 
 1. If the Management Console has been installed on a system with IP address
-   x.x.x.x, fire up a browser (Chromium (Chrome, Safari) is the supported browser for now), and
+   `x.x.x.x`, fire up a browser (Chromium (Chrome, Safari) is the supported browser for now), and
    navigate to https://x.x.x.x/
 
 ![Registration](images/DF_Registration.png)
 
 **After registration, it can take anywhere between 30-60 minutes for initial vulnerability data to be populated. The download status of the vulnerability data is reflected on the notification panel.**
+
+### Deepfence API Key
+
+Get api key for connecting agents or using the API's
+
+![API Key](images/DF_API_key.png)
 
 ### Use case - Visualization
 

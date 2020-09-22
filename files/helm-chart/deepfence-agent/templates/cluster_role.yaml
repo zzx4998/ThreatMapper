@@ -3,7 +3,7 @@ kind: ClusterRole
 metadata:
   name: deepfence-agent
   labels:
-    name: deepfence-agent
+    {{- include "deepfence-agent.labels" . | nindent 4 }}
 rules:
   - apiGroups:
       - ''

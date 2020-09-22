@@ -3,10 +3,28 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: deepfenceio/deepfence_agent_ce
+  # deepfence agent runs as a daemonset in all nodes in the cluster
+  name: deepfenceio/deepfence_agent_ce
   tag: latest
+  # cluster agent runs as a single pod
+  clusterAgentImageName: deepfenceio/deepfence_discovery_ce
+  clusterAgentImageTag: latest
+  pullPolicy: Always
 
-managementConsoleIp: 127.0.0.1
+managementConsoleIp: ""
+
+# Auth: Get deepfence api key from UI -> Settings -> User Management
+deepfenceKey: ""
+
+namespace: deepfence
+
+# comma separated list of tags (labels) to set for all agents
+userDefinedTags: ""
+
+# (Optional) Set custom hostname prefix for agents to easily identify in Deepfence UI.
+# Example: prod-cluster or dev1
+# It will be suffixed with hostname - prod-cluster-aks-agentpool-123456-vmss000001
+hostNamePrefix: ""
 
 resources:
   requests:
@@ -14,3 +32,21 @@ resources:
     memory: 512Mi
   limits:
     memory: 1024Mi
+
+nodeSelector: {}
+
+tolerations:
+  - operator: "Exists"
+    effect: "NoSchedule"
+  - operator: "Exists"
+    effect: "NoExecute"
+
+affinity: {}
+
+serviceAccount:
+  # Annotations to add to the service account
+  annotations: {}
+  name: "deepfence-agent"
+
+nameOverride: ""
+fullnameOverride: ""

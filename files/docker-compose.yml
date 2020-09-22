@@ -1,7 +1,7 @@
 version: '2.1'
 services:
 
-  deepfence_postgres:
+  deepfence-postgres:
     container_name: deepfence-postgres
     image: deepfenceio/deepfence_postgres_ce:latest
     restart: on-failure
@@ -14,29 +14,24 @@ services:
       options:
         max-size: "1g"
 
-  redis:
+  deepfence-redis:
     container_name: deepfence-redis
     image: deepfenceio/deepfence_redis_ce:latest
     restart: on-failure
     networks:
       - deepfence_net
-    volumes:
-      - deepfence_data_community:/data:rw
     logging:
       driver: "json-file"
       options:
         max-size: "1g"
 
-  deepfence_fetcher:
+  deepfence-fetcher:
     container_name: deepfence-fetcher
     image: deepfenceio/deepfence_fetcher_ce:latest
     depends_on:
-      - deepfence_postgres
+      - deepfence-postgres
     networks:
       - deepfence_net
-    ports:
-      - "8001:8001"
-      - "8002:8002"
     restart: on-failure
     volumes:
       - deepfence_data_community:/data:rw
@@ -45,43 +40,21 @@ services:
       options:
         max-size: "1g"
 
-  deepfence_topology:
+  deepfence-topology:
     container_name: deepfence-topology
     image: deepfenceio/deepfence_discovery_ce:latest
-    pid: "host"
-    privileged: true
-    networks:
-      - deepfence_net
-    restart: on-failure
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /sys/kernel/debug:/sys/kernel/debug:rw
-      - deepfence_data_community:/data:rw
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "1g"
-
-  deepfence_ti:
-    container_name: deepfence-ti
-    image: deepfenceio/deepfence_ti_ce:latest
-    restart: on-failure
     networks:
       - deepfence_net
     ports:
-      - "8003:8003"
-    depends_on:
-      - deepfence_topology
-      - es_master
-      - redis
-    volumes:
-      - deepfence_data_community:/data:rw
+      - "8004:8004"
+    restart: on-failure
+    command: topology
     logging:
       driver: "json-file"
       options:
         max-size: "1g"
 
-  es_master:
+  deepfence-es:
     container_name: deepfence-es-master
     image: deepfenceio/deepfence_elastic_ce:latest
     restart: on-failure
@@ -103,17 +76,18 @@ services:
       options:
         max-size: "1g"
 
-  nginx:
-    container_name: deepfence-nginx
-    image: deepfenceio/deepfence_nginx_ce:latest
+  deepfence-router:
+    container_name: deepfence-router
+    image: deepfenceio/deepfence_router_ce:latest
     networks:
       - deepfence_net
+    restart: always
     ports:
       - "80:80"
       - "443:443"
+      - "8001:8001"
+      - "8006:8006"
       - "8008:8008"
-    depends_on:
-      - api
     volumes:
       - /etc/deepfence/certs:/etc/deepfence/certs/:ro
     logging:
@@ -121,7 +95,7 @@ services:
       options:
         max-size: "1g"
 
-  api:
+  deepfence-api:
     container_name: deepfence-api
     image: deepfenceio/deepfence_api_ce:latest
     tmpfs:
@@ -129,11 +103,10 @@ services:
     networks:
       - deepfence_net
     depends_on:
-      - redis
-      - deepfence_postgres
-      - es_master
+      - deepfence-es
+      - deepfence-redis
+      - deepfence-postgres
     volumes:
-      - deepfence_data_community:/data:rw
       - /etc/docker/certs.d:/etc/docker/certs.d:ro
       - /var/run/docker.sock:/var/run/docker.sock
     entrypoint: /app/code/dockerify/api/entrypoint
@@ -142,54 +115,54 @@ services:
       options:
         max-size: "1g"
 
-  celery:
+  deepfence-celery:
     container_name: deepfence-celery
     image: deepfenceio/deepfence_api_ce:latest
     entrypoint: /app/code/dockerify/celery/entrypoint
     restart: on-failure
+    environment:
+      - image_tag=latest
     networks:
       - deepfence_net
-    ports:
-      - "8006:8006"
     depends_on:
-      - redis
-      - deepfence_postgres
+      - deepfence-redis
+      - deepfence-postgres
     volumes:
-      - deepfence_data_community:/data:rw
       - /var/run/docker.sock:/var/run/docker.sock
     logging:
       driver: "json-file"
       options:
         max-size: "1g"
 
-  celerybeat:
-    container_name: deepfence-celerybeat
+  deepfence-backend:
+    container_name: deepfence-backend
     image: deepfenceio/deepfence_api_ce:latest
-    entrypoint: /app/code/dockerify/celerybeat/entrypoint
+    entrypoint: /app/code/dockerify/backend/entrypoint
     restart: on-failure
     networks:
       - deepfence_net
     depends_on:
-      - redis
-      - deepfence_postgres
+      - deepfence-redis
+      - deepfence-postgres
     logging:
       driver: "json-file"
       options:
         max-size: "1g"
 
-  ui:
+  deepfence-ui:
     container_name: deepfence-ui
     image: deepfenceio/deepfence_ui_ce:latest
     networks:
       - deepfence_net
+    restart: on-failure
     depends_on:
-      - deepfence_topology
+      - deepfence-topology
     logging:
       driver: "json-file"
       options:
         max-size: "1g"
 
-  diagnosis:
+  deepfence-diagnosis:
     container_name: deepfence-diagnosis
     image: deepfenceio/deepfence_diagnosis_ce:latest
     networks:
@@ -202,30 +175,17 @@ services:
       options:
         max-size: "1g"
 
-  vulnerability_mapper:
+  deepfence-vulnerability-mapper:
     container_name: df-vulnerability-mapper
     image: deepfenceio/deepfence_vulnerability_mapper_ce:latest
     restart: "no"
+    networks:
+      - deepfence_net
     entrypoint: /bin/true
     logging:
       driver: "json-file"
       options:
         max-size: "1g"
-
-  deepfence_agent:
-    container_name: deepfence-agent
-    image: deepfenceio/deepfence_agent_ce:latest
-    restart: on-failure
-    pid: host
-    privileged: true
-    network_mode: "host"
-    volumes:
-      - /sys/kernel/debug:/sys/kernel/debug:rw
-      - /var/log/fenced
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /:/fenced/mnt/host/:ro
-    environment:
-      - DF_BACKEND_IP=localhost
 
 volumes:
   deepfence_data_community:

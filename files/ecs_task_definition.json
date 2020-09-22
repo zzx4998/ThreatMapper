@@ -23,6 +23,14 @@
                 {
                     "name": "DF_BACKEND_IP",
                     "value": "0.0.0.0"
+                },
+                {
+                    "name": "DEEPFENCE_KEY",
+                    "value": ""
+                },
+                {
+                    "name": "USER_DEFINED_TAGS",
+                    "value": ""
                 }
             ],
             "resourceRequirements": null,
