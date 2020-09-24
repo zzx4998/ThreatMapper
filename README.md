@@ -41,6 +41,7 @@ The Deepfence Runtime Threat Mapper is a subset of the Deepfence cloud native wo
       * [Deepfence Agent on Self-managed/On-premise Kubernetes](#deepfence-agent-on-self-managed--on-premise-kubernetes)
 * [How do I use Deepfence?](#how-do-i-use-deepfence)
     * [Register a User](#register-a-user)
+    * [API Key](#deepfence-api-key)
     * [Use case - Visualization](#use-case---visualization)
     * [Use Case - Runtime Vulnerability Management](#use-case---runtime-vulnerability-management)
     * [Use Case - Registry Scanning](#use-case---registry-scanning)
@@ -174,7 +175,7 @@ Installing the Deepfence Agent is now as easy as:
 
 1. Get Deepfence api key from UI: Goto `Settings` -> `User Management`, copy api key
 2. In the following docker run command, replace `x.x.x.x` with the IP address of the Management Console and replace `C8TtyEtNB0gBo1wGhpeAZICNSAaGWw71BSdS2kLELY0` with api Key
-    ```
+    ```shell script
     docker run -dit --cpus=".2" --name=deepfence-agent --restart on-failure --pid=host --net=host --privileged=true -v /sys/kernel/debug:/sys/kernel/debug:rw -v /var/log/fenced -v /var/run/docker.sock:/var/run/docker.sock -v /:/fenced/mnt/host/:ro -e USER_DEFINED_TAGS="" -e DF_BACKEND_IP="x.x.x.x" -e DEEPFENCE_KEY="C8TtyEtNB0gBo1wGhpeAZICNSAaGWw71BSdS2kLELY0" deepfenceio/deepfence_agent_ce:latest
     ```
 3. Optionally the agent node can be tagged using `USER_DEFINED_TAGS=""` in the above command. Tags should be comma separated. Example: "dev,front-end"
@@ -185,17 +186,17 @@ For detailed instructions to deploy agents on Amazon ECS, please refer to our [A
 
 #### Deepfence Agent Helm chart for Kubernetes
 
-- Start deepfence agent (replace `x.x.x.x` with the IP address of the Management Console)
+- Start deepfence agent (replace `x.x.x.x` with the IP address of the Management Console and `C8TtyEtNB0gBo1wGhpeAZICNSAaGWw71BSdS2kLELY0` with api key)
 ```shell script
 # helm v2
 helm install --repo https://deepfence.github.io/ThreatMapper/files/helm-chart deepfence-agent \
     --name=deepfence-agent \
     --set managementConsoleIp=x.x.x.x \
-    --set deepfenceKey=aaaaa
+    --set deepfenceKey=C8TtyEtNB0gBo1wGhpeAZICNSAaGWw71BSdS2kLELY0
 # helm v3
 helm install deepfence-agent --repo https://deepfence.github.io/ThreatMapper/files/helm-chart deepfence-agent \
     --set managementConsoleIp=x.x.x.x \
-    --set deepfenceKey=aaaaa
+    --set deepfenceKey=C8TtyEtNB0gBo1wGhpeAZICNSAaGWw71BSdS2kLELY0
 ```
 
 - Delete deepfence agent
