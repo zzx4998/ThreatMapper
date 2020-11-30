@@ -1,7 +1,7 @@
 
 ![Deepfence Logo](images/Deepfence-Logo_Black.jpg)
 
-[<img src="https://img.shields.io/badge/slack-@deepfence-brightgreen.svg?logo=slack">](https://join.slack.com/t/deepfence-community/shared_invite/zt-iicjmffl-8G2hY74AyKv9v4xHwfJ~3g)  
+[<img src="https://img.shields.io/badge/slack-@deepfence-brightgreen.svg?logo=slack">](https://join.slack.com/t/deepfence-community/shared_invite/zt-jm9amh4z-o~S6_jnrHXijR01N25gPyw)  
 
 # Deepfence Runtime Threat Mapper
 The Deepfence Runtime Threat Mapper is a subset of the Deepfence cloud native workload protection platform, released as a community edition. This community edition empowers the users with following features:
@@ -304,4 +304,4 @@ We periodically scan our own images for vulnerabilities and pulling latest image
 
 ### Support
 
-Please file Github issues as needed and/or join Deepfence Community [Slack channel](https://join.slack.com/t/deepfence-community/shared_invite/zt-iicjmffl-8G2hY74AyKv9v4xHwfJ~3g).
+Please file Github issues as needed and/or join Deepfence Community [Slack channel](https://join.slack.com/t/deepfence-community/shared_invite/zt-jm9amh4z-o~S6_jnrHXijR01N25gPyw).
