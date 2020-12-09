@@ -8,13 +8,6 @@ rules:
   - apiGroups:
       - ''
     resources:
-      - pods/exec
-    verbs:
-      - get
-      - create
-  - apiGroups:
-      - ''
-    resources:
       - pods
     verbs:
       - get
@@ -38,6 +31,8 @@ rules:
   - apiGroups:
       - apps
     resources:
+      - deployments
+      - daemonsets
       - statefulsets
     verbs:
       - get
@@ -62,12 +57,17 @@ rules:
       - list
       - watch
   - apiGroups:
+      - apps
+    resources:
+      - deployments/scale
+    verbs:
+      - get
+  - apiGroups:
       - extensions
     resources:
       - deployments/scale
     verbs:
       - get
-      - update
   - apiGroups:
       - storage.k8s.io
     resources:

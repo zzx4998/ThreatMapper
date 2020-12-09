@@ -48,23 +48,35 @@ spec:
               cpu: {{ .Values.resources.requests.cpu }}
               memory: {{ .Values.resources.requests.memory }}
             limits:
+              cpu: {{ .Values.resources.limits.cpu }}
               memory: {{ .Values.resources.limits.memory }}
           env:
             - name: DEEPFENCE_KEY
-              value: {{ .Values.deepfenceKey }}
+              valueFrom:
+                secretKeyRef:
+                  name: "deepfence-key"
+                  key: "deepfence-key"
             - name: USER_DEFINED_TAGS
               value: {{ .Values.userDefinedTags }}
+            - name: DF_ENABLE_PROCESS_REPORT
+              value: "{{ .Values.enableGraphReport }}"
+            - name: DF_ENABLE_CONNECTIONS_REPORT
+              value: "{{ .Values.enableGraphReport }}"
             - name: DF_BACKEND_IP
               value: "{{ required "managementConsoleIp is required" .Values.managementConsoleIp }}"
             - name: DF_KUBERNETES_ON
               value: "Y"
-            {{- if .Values.hostNamePrefix }}
+            - name: INSTANCE_ID_SUFFIX
+              value: "{{ .Values.instanceIdSuffix }}"
+            - name: DF_CLUSTER_NAME
+              value: "{{ .Values.clusterName }}"
+            {{- if .Values.clusterName }}
             - name: AGENT_HOSTNAME
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
             - name: SCOPE_HOSTNAME
-              value: "{{ .Values.hostNamePrefix }}-$(AGENT_HOSTNAME)"
+              value: "{{ .Values.clusterName }}-$(AGENT_HOSTNAME)"
             {{- else }}
             - name: SCOPE_HOSTNAME
               valueFrom:

@@ -27,14 +27,19 @@ spec:
             - {{ required "managementConsoleIp is required" .Values.managementConsoleIp }}
           env:
             - name: DEEPFENCE_KEY
-              value: {{ .Values.deepfenceKey }}
-            {{- if .Values.hostNamePrefix }}
+              valueFrom:
+                secretKeyRef:
+                  name: "deepfence-key"
+                  key: "deepfence-key"
+            - name: DF_CLUSTER_NAME
+              value: "{{ .Values.clusterName }}"
+            {{- if .Values.clusterName }}
             - name: AGENT_HOSTNAME
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
             - name: SCOPE_HOSTNAME
-              value: "{{ .Values.hostNamePrefix }}-$(AGENT_HOSTNAME)"
+              value: "{{ .Values.clusterName }}-$(AGENT_HOSTNAME)"
             {{- else }}
             - name: SCOPE_HOSTNAME
               valueFrom:
@@ -50,9 +55,10 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
           resources:
-            limits:
-              memory: {{ .Values.resources.limits.memory }}
             requests:
-              cpu: 25m
-              memory: 80Mi
+              cpu: {{ .Values.clusterAgentResources.requests.cpu }}
+              memory: {{ .Values.clusterAgentResources.requests.memory }}
+            limits:
+              cpu: {{ .Values.clusterAgentResources.limits.cpu }}
+              memory: {{ .Values.clusterAgentResources.limits.memory }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
